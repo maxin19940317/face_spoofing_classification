@@ -1,0 +1,7 @@
+numpy~=1.19.5
+tensorflow-gpu~=2.4.2
+opencv-python~=4.5.2.54
+pillow~=8.2.0
+ncnn~=1.0.20210525
+tqdm~=4.61.1
+scikit-image~=0.18.1
