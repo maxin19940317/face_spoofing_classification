@@ -1,7 +1,5 @@
-import sys
 import numpy as np
 import cv2
-import datetime
 
 from .object import Point, Face_Object
 
