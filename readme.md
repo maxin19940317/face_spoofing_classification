@@ -33,11 +33,11 @@ python tools/gen_train_data_with_align.py
 ### 推理过程
 ##### 单例
 ```shell
-python infer/infer.py
+python infer.py
 ```
 
 ##### 批量
 ```shell
-python iner/infer_batch.py
+python infer_batch.py
 ```
 ----------------------------------------
