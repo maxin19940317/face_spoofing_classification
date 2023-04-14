@@ -215,7 +215,7 @@ class Train(object):
 
 if __name__ == '__main__':
     with open('./configs/config.yaml') as f:
-        config = yaml.load(f)
+        config = yaml.load(f, Loader=yaml.FullLoader)
 
     network_type = config['NETWORK']['NETWORK_TYPE']
     os.makedirs(f'./weights/{network_type}', exist_ok=True)
