@@ -42,7 +42,7 @@ if __name__ == '__main__':
     os.makedirs('./data', exist_ok=True)
 
     with open('./configs/config.yaml') as f:
-        config = yaml.load(f)
+        config = yaml.load(f, Loader=yaml.FullLoader)
 
     train_data_dir = config['DATASETS']['TRAIN_DATA_DIR']
     test_data_dir  = config['DATASETS']['TEST_DATA_DIR']
