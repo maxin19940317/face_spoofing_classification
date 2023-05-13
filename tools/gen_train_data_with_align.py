@@ -1,13 +1,12 @@
 """
 根据视频拆解的原图生成训练数据集(训练集和测试集)
 1.检测最大人脸
-2.人脸对齐
+2.根据人眼做人脸对齐
 """
 
 import os
 import multiprocessing
 
-import numpy as np
 import cv2 as cv
 
 from retinaface.retinaface import RetinaFace
@@ -30,13 +29,14 @@ def detect_max_face(img):
     return max_face
 
 
-def align_face(image_path, output_dir):
+def gen_align_face(image_path, output_dir):
     """人脸对齐
     Args:
         image_path: 输入图像的路径 -> str
     Return:
         对齐后的人脸
     """
+    print(f'{image_path} processing...')
     img_src = cv.imread(image_path)
     max_face = detect_max_face(img_src)
     if not max_face or max_face.prob < 0.9:
@@ -48,7 +48,7 @@ def align_face(image_path, output_dir):
     # 根据人眼做人脸对齐
     img_aligned = align_eyes(img_src, left_eye_point, right_eye_point)
 
-    image_name = image_path.split('/')[-1]
+    image_name = os.path.split(image_path)[-1]
     image_save_path = os.path.join(output_dir, f'{image_name[:-4]}.jpg')
     cv.imwrite(image_save_path, img_aligned)
     return
@@ -57,12 +57,12 @@ def align_face(image_path, output_dir):
 if __name__ == '__main__':
     net = RetinaFace(num_threads=1)
 
-    input_root = '/media/cyg/DATA1/DataSet/Face-Anti-spoofing/RITS/images_02/'
-    output_root = '/media/cyg/DATA1/DataSet/Face-Anti-spoofing/RITS/data_aligned_03/'
+    input_root = '/media/cyg/DATA1/DataSet/Face-Anti-spoofing/RITS/images/'
+    output_root = '/media/cyg/DATA1/DataSet/Face-Anti-spoofing/RITS/data_aligned/'
     data_types = ['train', 'test']
 
     cpu_count = multiprocessing.cpu_count()
-    pool = multiprocessing.Pool(processes=cpu_count)
+    pool = multiprocessing.Pool(processes=cpu_count//2)
 
     for data_type in data_types:
         data_dir = os.path.join(input_root, data_type)
@@ -80,7 +80,7 @@ if __name__ == '__main__':
                     continue
 
                 image_path = os.path.join(input_root, data_type, label_name, image_name)
-                pool.apply_async(align_face, (image_path, output_dir))
+                pool.apply_async(gen_align_face, (image_path, output_dir))
 
     pool.close()
     pool.join()

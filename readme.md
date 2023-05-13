@@ -20,18 +20,24 @@ python tools/split.video_with_similarity.py
 python tools/gen_train_data_with_align.py
 ```
 ##### 3. 开始训练
-1. 修改parse_args.py中的相关参数
-2. 运行train.py
-
+1. 修改configs/config.yaml中的相关参数
+2. 生成数据集csv文件
+    ```shell
+    python gen_train_csv.py
+    ```
+3. 运行训练脚本
+    ```shell
+    python train.py
+    ```
 ----------------------------------------
 ### 推理过程
 ##### 单例
 ```shell
-python infer/infer.py
+python infer.py
 ```
 
 ##### 批量
 ```shell
-python iner/infer_batch.py
+python infer_batch.py
 ```
 ----------------------------------------

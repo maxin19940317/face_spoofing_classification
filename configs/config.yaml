@@ -1,0 +1,26 @@
+# ------------------------------------------- system -------------------------------------------
+SYSTEM:
+    CPU_WORKERS: 12
+
+# ----------------------------------------------------------------------------------------------
+DATASETS:
+    TRAIN_DATA_DIR: /media/cyg/DATA1/DataSet/Face-Anti-spoofing/RITS/data_aligned/train/
+    TEST_DATA_DIR:  /media/cyg/DATA1/DataSet/Face-Anti-spoofing/RITS/data_aligned/test/
+    TRAIN_CSV_FILE: data/train.csv
+    TEST_CSV_FILE:  data/test.csv
+    LABEL_NUM: 2
+
+# ------------------------------------------- train -------------------------------------------
+NETWORK:
+    NETWORK_TYPE: mobilenet_v2      # [mobilenet_v2]
+
+TRAIN:
+    EPOCHS: 25
+    BATCH_SIZE: 64
+    STAGE_EPOCHS: [10, 15, 20]      # 学习率更新节点
+    LR: 0.0001  # 初始学习率
+    LR_DECAY: 5  # 学习率衰减系数 (new_lr = lr / lr_decay)
+    WEIGHT_DECAY: 0.0001  # 正则化系数
+    RESUME: False    # 是否从断点继续跑
+
+# ---------------------------------------------------------------------------------------------

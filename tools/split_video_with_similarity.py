@@ -5,6 +5,9 @@
 """
 
 import os
+import sys
+sys.path.append('.')
+
 from tqdm import tqdm
 import multiprocessing
 
@@ -73,11 +76,11 @@ def split_video_to_image(video_path, data_type, label_name):
 
 if __name__ == '__main__':
     video_root = '/media/cyg/DATA1/DataSet/Face-Anti-spoofing/RITS/videos/'
-    image_root = '/media/cyg/DATA1/DataSet/Face-Anti-spoofing/RITS/images_02/'
+    image_root = '/media/cyg/DATA1/DataSet/Face-Anti-spoofing/RITS/images/'
     data_types = ['train', 'test']
 
     cpu_count = multiprocessing.cpu_count()
-    pool = multiprocessing.Pool(processes=cpu_count)
+    pool = multiprocessing.Pool(processes=cpu_count//2)
 
     for data_type in data_types:
         data_dir = os.path.join(video_root, data_type)
